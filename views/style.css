@@ -1,0 +1,157 @@
+h1{
+    text-align: center;
+    color: rgb(85, 85, 85);
+}
+/* The side navigation menu */
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+  }
+  
+  /* Sidebar links */
+  .sidebar a {
+    display: block;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
+  }
+  
+  /* Active/current link */
+  .sidebar a.active {
+    background-color: #04AA6D;
+    color: white;
+  }
+  
+  /* Links on mouse-over */
+  .sidebar a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+  }
+  
+  /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+  div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 1000px;
+  }
+  
+  /* On screens that are less than 700px wide, make the sidebar into a topbar */
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+    .sidebar a {float: left;}
+    div.content {margin-left: 0;}
+  }
+  
+  /* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+  @media screen and (max-width: 400px) {
+    .sidebar a {
+      text-align: center;
+      float: none;
+    }
+  }
+
+  main {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100vh;
+    max-height: 100vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    }
+
+    .container-fluid{
+      --bs-gutter-x: 0rem;
+        --bs-gutter-y: 0;
+        width: 100%;
+        padding-right: calc(var(--bs-gutter-x) * .5);
+        padding-left: calc(var(--bs-gutter-x) * .5);
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .groups {
+      height:150px;
+      overflow-y: scroll;
+      
+    }
+
+    
+
+    .classAddBtn{
+      background-color: rgb(47, 151, 230);
+      border-radius: 10px;
+      border-color: rgb(11, 101, 210);
+      border-style: solid;
+      padding: 2px 15px 2px 15px;
+      
+    }
+    button, input, optgroup, select, textarea {
+      margin: 0;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      background-color: rgb(193, 193, 193);
+      border-radius: 10px;
+      margin: 5px;
+  }
+  .groupAdder {
+    justify-content: center;
+  }
+
+  /*Scrollbar Eddit*/
+
+  ::-webkit-scrollbar {
+    width: 20px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  }
+   
+  ::-webkit-scrollbar-thumb {
+    background: rgb(124, 124, 124); 
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #525252; 
+  }
+    
+  .Grouptitle{
+    font-weight: bold;
+    font-size: xxx-large;
+    color: #3C4048;
+    padding:10px 30px 10px 30px;
+  }
+  .dashboard{
+    background-color:#EAEAEA;
+  }
+  .infoGroup{
+    font-size:20px;
+    padding: 0px 30px 5px 30px;
+    font-weight: bold;
+    color: #B2B2B2;
+  }
+
+  
+  .taskItem{
+    background-color: #B2B2B2;
+    margin: 5px;
+    border:5px;
+    border-radius: 10px;
+    color: #000000;
+    padding-left:10px;
+    font-size: large;
+    font-weight: bold;
+  }

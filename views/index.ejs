@@ -1,0 +1,155 @@
+<%- include("./utils/header") %>
+
+<main>
+    <div class="d-flex flex-column p-3 text-white bg-dark m-0" style="width: 280px">
+        <div class="d-flex align-items-center text-white ">
+            <img src="/assets/todolist_planing_list_planlist_todo_icon_142265.png" height="50" width="45">
+            <span class="fs-4 ms-4">MYtoDO</span>
+        </div>
+
+        <hr>
+        <!-- This part of code get all groups and create sidebar-->
+        <div class="text-center">
+            Groups
+        </div>
+        <hr>
+
+        <div class="groups flex-grow-1">
+            <ul class="nav nav-pills">
+                <% groups.forEach(group => { %>
+                <li class="d-flex align-items-center border border-secondary rounded m-1" style="width: 100%;">
+
+                    <a class="d-flex btn btn-dark <% if(group.id==visGroup){ %>
+                            active
+                        <% } %>" id="v-pills-<%= group.title %>-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-<%= group.title %>" type="button" role="tab"
+                        aria-controls="v-pills-<%= group.title %>">
+                        <%= group.title %>
+
+                    </a>
+                    <% if(group.title!=="Today") { %>
+                    <form action="/api/v1/group/deletegroup/<%= group.id %>" method="post" class="p-2 ms-auto">
+                        <button type="submit" class="d-flex btn btn-danger" id="liveAlertBtn"
+                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Delete</button>
+
+
+                    </form>
+                    <% } %>
+                </li>
+
+                <% }); %>
+            </ul>
+        </div>
+        <!--This part of code is used to Create New Group-->
+        <hr class="mt-auto pt-2">
+        <div class="groupAdder mt-auto">
+            <form action="/api/v1/group" method="post" class="container">
+                <input type="text" name="title" placeholder="Add New Group">
+                <input type="submit" value="Add" class="classAddBtn">
+            </form>
+        </div>
+
+
+
+
+    </div>
+    <!-- This part of code controls tasks page -->
+    <div class="dashboard container">
+
+        <div class="tab-content" id="v-pills-tabContent">
+
+            <% groups.forEach(group => { %>
+
+            <!-- This part pf code create tasks page for each group -->
+
+            <div class="tab-pane fade <% if(group.id==visGroup){ %>
+                        show active
+                    <% } %>" id="v-pills-<%= group.title %>" role="tabpanel"
+                aria-labelledby="v-pills-<%= group.title %>-tab" tabindex="0">
+                <div class="flex-grow-1">
+                    <div class="Grouptitle"> <%= group.title %> </div>
+
+                    <div class="infoGroup">Tasks Pending: <%= group.tasks.length %> </div>
+                    <hr class="border border-dark border-3 opacity-75">
+
+                    <!--This part created task input form-->
+                    <div class="d-flex justify-content-center">
+                        <form action="/api/v1/group/<%= group.id %>" method="post">
+                            <input type="text" name="taskTitle" placeholder="Enter task title">
+                            
+                            <input type="date" name="start" id="start" placeholder="(Optional)">
+                            <input type="url" name="URL" id="URL" placeholder="Enter URL (Optional)">
+                            <input type="text" name="Notes" id="Notes" placeholder="Add Notes (Optional)">
+                            <input class="btn btn-success "type="submit" value="Add task">
+                        </form>
+                    </div>
+                    <hr class="border border-dark border-3 opacity-75">
+
+
+                        <ul>    
+                            <!-- This part of code create tasks list-->
+                            <% group.tasks.forEach(task=>{ %>
+                            <li>
+                                <div class="d-flex me-auto taskItem align-items-center">
+                                    <%= task.taskTitle %>
+                                    <div class="d-flex p-2 ms-auto">
+                                        <button class=" btn btn-primary "  data-bs-toggle="collapse" data-bs-target="#D<%= task.id %>" aria-expanded="false" aria-controls="D<%= task.id %>">
+                                        Details
+                                    </button>
+                                    </div>
+                                    
+                                    
+                                    <form action="/api/v1/group/deleteTask/<%= group.id %>/<%= task.id %>" method="post"
+                                        class="p-2">
+                                        <button type="submit" class="d-flex btn btn-success flex-fill" id="liveAlertBtn">Done</button>
+
+
+                                    </form>
+
+                                </div>
+                                <!--Details of task collapse-->
+                                <div class="collapse" id="D<%= task.id %>">
+                                    <div class="card card-body">
+                                        <% const Date = task.start || "Not Provided" %>
+                                        <% const URL = task.URL || "Not Provided" %>
+                                        <% const Notes = task.Notes || "Not Provided" %>
+
+
+                                        <ul>
+                                            <li>Title: <%= task.taskTitle %></li>
+                                            <li>Date : <%= Date %></li>
+                                            <li>Link : <%= URL %></li>
+                                            <li>Notes : <%= Notes %></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <% }) %>
+                        </ul>
+
+
+
+                    
+                </div>
+
+
+            </div>
+
+            <% }); %>
+
+        </div>
+    </div>
+
+    </div>
+</main>
+
+<!--Script to avoid resubmission of form while refreshing-->
+
+<script>
+   if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+
+
+<%- include("./utils/footer") %>
