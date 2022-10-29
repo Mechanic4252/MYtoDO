@@ -67,13 +67,16 @@
                     <% } %>" id="v-pills-<%= group.title %>" role="tabpanel"
                 aria-labelledby="v-pills-<%= group.title %>-tab" tabindex="0">
                 <div class="flex-grow-1">
-                    <div class="Grouptitle"> <%= group.title %> </div>
+                    <div class="groupTile">
+                        <div class="Grouptitle"> <%= group.title %> </div>
 
-                    <div class="infoGroup">Tasks Pending: <%= group.tasks.length %> </div>
-                    <hr class="border border-dark border-3 opacity-75">
+                        <div class="infoGroup mb-3">Tasks Pending: <%= group.tasks.length %> </div>
+                    </div>
+                    
+                    
 
                     <!--This part created task input form-->
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center taskInput mb-4">
                         <form action="/api/v1/group/<%= group.id %>" method="post">
                             <input type="text" name="taskTitle" placeholder="Enter task title">
                             
@@ -83,7 +86,7 @@
                             <input class="btn btn-success "type="submit" value="Add task">
                         </form>
                     </div>
-                    <hr class="border border-dark border-3 opacity-75">
+                    
 
 
                         <ul>    
@@ -110,17 +113,17 @@
                                 <!--Details of task collapse-->
                                 <div class="collapse" id="D<%= task.id %>">
                                     <div class="card card-body">
-                                        <% const Date = task.start || "Not Provided" %>
-                                        <% const URL = task.URL || "Not Provided" %>
-                                        <% const Notes = task.Notes || "Not Provided" %>
+                                        <% const Date = task.start || "--" %>
+                                        <% const URL = task.URL || "--" %>
+                                        <% const Notes = task.Notes || "--" %>
 
 
-                                        <ul>
-                                            <li>Title: <%= task.taskTitle %></li>
-                                            <li>Date : <%= Date %></li>
-                                            <li>Link : <%= URL %></li>
-                                            <li>Notes : <%= Notes %></li>
-                                        </ul>
+                                        <dl class="row">
+                                            <dt class="col-sm-3">Title</dt> <dd class="col-sm-9"><%= task.taskTitle %></dd> 
+                                            <dt class="col-sm-3">Date </dt> <dd class="col-sm-9"><%= Date %></dd> 
+                                            <dt class="col-sm-3">Link</dt>  <dd class="col-sm-9"><a href="<%= URL %>" target="_blank"><%= URL %></a> </dd>
+                                            <dt class="col-sm-3" >Notes</dt><dd class="col-sm-9"><%= Notes %></dd>
+                                        </dl>
                                     </div>
                                 </div>
                             </li>
